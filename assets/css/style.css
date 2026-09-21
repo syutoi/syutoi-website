@@ -2,6 +2,7 @@
   color-scheme: light dark;
   --bg: #f6f2ea;
   --surface: rgba(255, 255, 255, 0.34);
+  --logo-surface: #f0e4bf;
   --text: #202020;
   --muted: #74706a;
   --line: rgba(32, 32, 32, 0.12);
@@ -47,12 +48,11 @@ body {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(80, 60, 30, 0.12);
   border-radius: 42px;
-  background: var(--surface);
+  background: var(--logo-surface);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
 }
 
 .brand-mark {
@@ -168,6 +168,7 @@ h1 {
   :root {
     --bg: #151515;
     --surface: rgba(255,255,255,.035);
+    --logo-surface: #f0e4bf;
     --text: #f1eee8;
     --muted: #a6a19a;
     --line: rgba(255,255,255,.10);
@@ -182,14 +183,69 @@ h1 {
       var(--bg);
   }
 
-  .brand-mark { filter: brightness(1.04); }
+  .brand-mark-wrap {
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .brand-mark-wrap, .hero-copy { animation: enter .7s ease both; }
-  .hero-copy { animation-delay: .08s; }
+  .brand-mark-wrap {
+    animation:
+      enter .7s ease both,
+      sky-cycle 34s linear infinite;
+  }
+  .hero-copy {
+    animation: enter .7s ease both;
+    animation-delay: .08s;
+  }
+
   @keyframes enter {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 暖黄白天 → 金夕 → 深蓝夜晚 → 黎明（靛 → 藕紫 → 桃金）→ 回昼 */
+  @keyframes sky-cycle {
+    0%, 100% {
+      background-color: #f0e4bf;
+      border-color: rgba(80, 60, 30, 0.12);
+    }
+    12% {
+      background-color: #e8c98a;
+      border-color: rgba(100, 70, 30, 0.14);
+    }
+    24% {
+      background-color: #9aa8c4;
+      border-color: rgba(40, 50, 80, 0.16);
+    }
+    36% {
+      background-color: #243552;
+      border-color: rgba(180, 200, 230, 0.12);
+    }
+    48% {
+      background-color: #162238;
+      border-color: rgba(180, 200, 230, 0.10);
+    }
+    /* 黎明：先提亮冷调，再慢慢染暖，避免直接跳到土黄 */
+    58% {
+      background-color: #1e2c4a;
+      border-color: rgba(160, 180, 220, 0.12);
+    }
+    66% {
+      background-color: #3d4a72;
+      border-color: rgba(140, 150, 200, 0.14);
+    }
+    74% {
+      background-color: #6e6d9a;
+      border-color: rgba(120, 100, 140, 0.14);
+    }
+    82% {
+      background-color: #b89898;
+      border-color: rgba(100, 70, 80, 0.12);
+    }
+    90% {
+      background-color: #e0c4a0;
+      border-color: rgba(100, 70, 40, 0.12);
+    }
   }
 }
